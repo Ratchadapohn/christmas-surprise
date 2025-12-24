@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Christmas Surprise ❤️</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --gold: #e6c77b;
+        --glass: rgba(255, 255, 255, 0.12);
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+          url("https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=1600&q=80");
+        background-size: cover;
+        background-position: center;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 24px;
+        color: #fff;
+      }
+
+      .wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+
+      .card {
+        backdrop-filter: blur(12px);
+        background: var(--glass);
+        border-radius: 28px;
+        padding: 42px 34px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .progress {
+        font-size: 0.9rem;
+        opacity: 0.75;
+        margin-bottom: 22px;
+        letter-spacing: 0.08em;
+      }
+
+      h1 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+        line-height: 1.45;
+        margin: 0;
+        text-align: center;
+      }
+
+      /* ---------- SANTA ---------- */
+      .santa {
+        font-size: 3.2rem;
+        text-align: center;
+        margin-bottom: 12px;
+        animation: wiggle 1.2s infinite ease-in-out;
+      }
+
+      @keyframes wiggle {
+        0% {
+          transform: rotate(0deg) translateY(0);
+        }
+        25% {
+          transform: rotate(-6deg) translateY(-2px);
+        }
+        50% {
+          transform: rotate(6deg) translateY(0);
+        }
+        75% {
+          transform: rotate(-4deg) translateY(-1px);
+        }
+        100% {
+          transform: rotate(0deg) translateY(0);
+        }
+      }
+
+      /* ---------- SLIDE ANIMATION ---------- */
+      .slide {
+        animation: slideFade 0.6s ease;
+      }
+
+      @keyframes slideFade {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      video {
+        width: 100%;
+        max-height: 70vh;
+        border-radius: 22px;
+        margin-top: 26px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        object-fit: contain;
+      }
+
+      .controls {
+        margin-top: 36px;
+        display: flex;
+        gap: 14px;
+      }
+
+      button {
+        flex: 1;
+        padding: 14px 18px;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      button.primary {
+        background: linear-gradient(135deg, #5d594e, #928c7f);
+        color: #ebebeb;
+      }
+
+      button.secondary {
+        background: rgba(255, 255, 255, 0.18);
+        color: #fff;
+      }
+
+      button:hover {
+        transform: translateY(-1px);
+      }
+
+      button.hidden {
+        display: none;
+      }
+
+      @media (max-width: 480px) {
+        .card {
+          padding: 28px 22px;
+        }
+        h1 {
+          font-size: 1.45rem;
+        }
+      }
+
+      @media (min-width: 1025px) {
+        .card {
+          max-width: 760px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="card">
+        <div class="progress" id="progress"></div>
+        <div id="content"></div>
+
+        <div class="controls">
+          <button id="backBtn" class="secondary" onclick="prev()">
+            ← Back
+          </button>
+          <button id="nextBtn" class="primary" onclick="next()">
+            Continue ❤️
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const pages = [
+        "🎄 Merry Christmas, my Mateusz ❤️🎁",
+        "I want you to know… you are truly one of a kind.",
+        "You are strong, intelligent, and incredibly capable.",
+        "I admire how committed and consistent you are.",
+        "You never give up and that’s why you succeed.",
+        "I’m so proud of the man you are.",
+        "Thank you for your strength.",
+        "Thank you for your stability.",
+        "Thank you for your consistency.",
+        "Thank you for loving me.",
+        "You make me want to be better every day.",
+        "Because of you, I believe in love more.",
+        "I can’t wait to spend more time with you.",
+        "My heart is ready for more memories ❤️",
+        "VIDEO",
+      ];
+
+      let index = 0;
+      const content = document.getElementById("content");
+      const backBtn = document.getElementById("backBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const progress = document.getElementById("progress");
+
+      function render() {
+        progress.textContent = `STEP ${index + 1} / ${pages.length}`;
+
+        if (pages[index] === "VIDEO") {
+          content.innerHTML = `
+            <div class="slide">
+              <div class="santa">🎅🎄</div>
+              <h1>This is for you 🎁</h1>
+              <video controls playsinline>
+                <source src="video.mp4" type="video/mp4">
+              </video>
+            </div>
+          `;
+        } else {
+          content.innerHTML = `
+            <div class="slide">
+              <div class="santa">🎅</div>
+              <h1>${pages[index]}</h1>
+            </div>
+          `;
+        }
+
+        backBtn.classList.toggle("hidden", index === 0);
+        nextBtn.classList.toggle("hidden", index === pages.length - 1);
+      }
+
+      function next() {
+        if (index < pages.length - 1) {
+          index++;
+          render();
+        }
+      }
+
+      function prev() {
+        if (index > 0) {
+          index--;
+          render();
+        }
+      }
+
+      render();
+    </script>
+  </body>
+</html>
